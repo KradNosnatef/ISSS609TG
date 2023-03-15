@@ -8,6 +8,7 @@ from nltk.stem.porter import PorterStemmer
 import json
 
 country={}
+dictionary={}
 i=0
 
 with open("./assets/DisneylandReviews.csv","r",encoding="ISO-8859-1") as file:
@@ -27,8 +28,9 @@ with open("./assets/DisneylandReviews.csv","r",encoding="ISO-8859-1") as file:
         stemmedComment=[stemmer.stem(word) for word in stopWordsRemovedComment]
         #print(stemmedComment)
 
-        fileSaved=open("./assets/processedComments/"+str(rows[i][0])+".txt","w",encoding="utf-8")
-        fileSaved.write(json.dumps(stemmedComment))
-        fileSaved.close()
+        dictionary[str(rows[i][0])]=stemmedComment
         print(i)
 
+    fileSaved=open("./assets/processedComments.txt","w",encoding="utf-8")
+    fileSaved.write(json.dumps(dictionary))
+    fileSaved.close()
