@@ -1,1 +1,4 @@
 .DS_Store
+DAO/__pycache__/CommentsDAO.cpython-310.pyc
+.gitignore
+DAO/__pycache__/RawComment.cpython-310.pyc

@@ -2,7 +2,7 @@ import mysql.connector
 from RawComment import *
 
 database=mysql.connector.connect(
-    host="fuqianshan.asuscomm.com",
+    host="192.168.50.70",
     user="fuqianshan",
     passwd="KRPCGroup",
     database="isss609gp06"
@@ -15,10 +15,15 @@ class CommentsDAO:
         BID=CommentsDAO.SearchAndInsertBranch(rawComment.branch)
         LID=CommentsDAO.SearchAndInsertReviewrLocation(rawComment.reviewerLocation)
         
-        sql="insert into comments (RID,Rating,YearMonth,LID,BID) values (%s,%s,%s,%s,%s);"
-        val=(rawComment.RID,rawComment.rating,rawComment.getYearMonthInQueryFormat(),LID,BID)
-        cursor.execute(sql,val)
-        database.commit()
+        try:
+            sql="update comments SET Rating=%s,YearMonth=%s,LID=%s,BID=%s WHERE RID=%s;"
+            val=(rawComment.rating,rawComment.getYearMonthInQueryFormat(),LID,BID,rawComment.RID)
+            #print(val)
+            cursor.execute(sql,val)
+            database.commit()
+        except:
+            print("?")
+            pass
 
 
     def SearchAndInsertBranch(branch):
