@@ -1,10 +1,14 @@
 <template>
     <div style="outline: auto;">
-        <label style="float: left;">Posted at: {{ comment[2] }}</label>
+        <label style="float: left;">Posted in: {{ comment[2] }}</label>
         <br>
-        <label style="float: left;">&emsp; Visitor from: {{ comment[3] }}</label>
+        <div style="float: left;margin-left: 30px;">
+            <label v-for="i in comment[1]" style="float: left;" :key="i">&#127775;</label>
+        </div>
         <br>
-        <div style="margin-left: 30px;">{{ comment[4] }}</div>
+        <label style="float: left;">Visitor from: {{ comment[3] }}</label>
+        <br>
+        <p style="text-align: left;margin-left: 30px;">{{ comment[4] }}</p>
     </div>
 </template>
 
@@ -19,7 +23,7 @@ export default {
     components: {
     },
     props: {
-        comment:Array
+        comment: Array
     }
 }
 </script>

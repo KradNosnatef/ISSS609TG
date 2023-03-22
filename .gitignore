@@ -1,4 +1,5 @@
 .DS_Store
-DAO/__pycache__/CommentsDAO.cpython-310.pyc
+DAO/__pycache__/
 .gitignore
-DAO/__pycache__/RawComment.cpython-310.pyc
+DAO/__pycache__/
+DEMO/pythonFlask/__pycache__/
