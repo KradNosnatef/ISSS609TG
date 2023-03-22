@@ -5,3 +5,7 @@ DAO/__pycache__/
 DEMO/pythonFlask/__pycache__/main.cpython-310.pyc
 DEMO/pythonFlask/__pycache__/CommentsDAO.cpython-310.pyc
 DEMO/pythonFlask/__pycache__/main.cpython-310.pyc
+DEMO/pythonFlask/__pycache__/CommentsDAO.cpython-310.pyc
+.gitignore
+DEMO/pythonLoad/__pycache__/CommentsDAO.cpython-310.pyc
+DEMO/pythonLoad/__pycache__/RawComment.cpython-310.pyc
