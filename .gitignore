@@ -2,4 +2,6 @@
 DAO/__pycache__/
 .gitignore
 DAO/__pycache__/
-DEMO/pythonFlask/__pycache__/
+DEMO/pythonFlask/__pycache__/main.cpython-310.pyc
+DEMO/pythonFlask/__pycache__/CommentsDAO.cpython-310.pyc
+DEMO/pythonFlask/__pycache__/main.cpython-310.pyc

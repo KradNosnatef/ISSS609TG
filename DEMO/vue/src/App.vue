@@ -1,14 +1,14 @@
 <template>
-  <HelloWorld/>
+  <CommentsContainer/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import CommentsContainer from './components/CommentsContainer.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    CommentsContainer,
   }
 }
 </script>

@@ -1,4 +1,5 @@
 <template>
+  <ChartsContainer :chartParams="chartParams"></ChartsContainer>
   <div>
     <textarea>Filter Options</textarea>
     <br>
@@ -31,7 +32,8 @@
       <br>
       <label>Reviewer Location:</label><select v-model="filterOption.reviewerLocation" @change="onEngageFilter">
         <option :value="nullValue">all</option>
-        <option v-for="i in possibleReviewerLocationList.length-1" :key="i" :value="possibleReviewerLocationList[i]">{{ possibleReviewerLocationList[i] }}</option>
+        <option v-for="i in possibleReviewerLocationList.length - 1" :key="i" :value="possibleReviewerLocationList[i]">{{
+          possibleReviewerLocationList[i] }}</option>
       </select>
       <br>
       <label>Sentiment:</label><select v-model="filterOption.sentiment" @change="onEngageFilter">
@@ -49,15 +51,27 @@
         <option value="DESC">descend</option>
         <option value="ASC">ascend</option>
       </select>
+      <div v-if="filterOption.dominantTopic">
+        <label>You are using topic filter</label>
+        <br>
+        <button @click="disengageDominantTopicFilter">disengage topic filter</button>
+      </div>
     </div>
-
-    <div style="margin-top: 30px;">
-      <CommentItemCard v-for="comment in commentsArray" :key="comment[0]" :comment="comment"></CommentItemCard>
+    <div style="margin-top: 10px;">
+      <label>page:{{ filterOption.page + 1 }}</label>
+      <br>
+      <button @click="pageChange(-1)">pre page</button><button @click="pageChange(0)">return to head</button><button
+        @click="pageChange(1)">nxt page</button>
+    </div>
+    <div style="margin-top: 5px;">
+      <CommentItemCard v-for="comment in commentsArray" :key="comment[0]" :comment="comment"
+        @engageDominantTopicFilter="engageDominantTopicFilter"></CommentItemCard>
     </div>
   </div>
 </template>
 
 <script>
+import ChartsContainer from './ChartsContainer.vue';
 const axios = require('axios').default
 import CommentItemCard from './CommentItemCard.vue';
 export default {
@@ -67,21 +81,26 @@ export default {
       filterOption: {
         returnNumberLimit: 8,
         rating: null,
-        monthNotLastThan:null,
-        reviewerLocation:null,
-        branch:null,
-        dominantTopic:null,
-        sentiment:null,
-        orderBy:"yearMonth",
-        DESCorASC:"DESC",
+        monthNotLastThan: null,
+        reviewerLocation: null,
+        branch: null,
+        dominantTopic: null,
+        sentiment: null,
+        orderBy: "yearMonth",
+        DESCorASC: "DESC",
+        page: 0
       },
-      possibleReviewerLocationList:[],
-      nullValue:null
+      chartParams:{
+        xName:[],
+        yValue:[]
+      },
+      possibleReviewerLocationList: [],
+      nullValue: null
     })
   },
   created: function () {
-    axios.get("/cmd/getPossibleReviewerLocation").then(reponse=>{
-      this.possibleReviewerLocationList=reponse.data
+    axios.get("/cmd/getPossibleReviewerLocation").then(reponse => {
+      this.possibleReviewerLocationList = reponse.data
       console.log(this.possibleReviewerLocationList)
     })
 
@@ -93,14 +112,36 @@ export default {
         console.log(response.data)
         this.commentsArray = response.data
       })
+      axios.post("/cmd/getCommentsNumberGroupByYearMonthWithFilter",this.filterOption).then(response=>{
+        console.log(response.data)
+        this.chartParams=response.data
+      })
     },
-    onEngageFilter(){
+    onEngageFilter() {
+      this.filterOption.page = 0
       this.refreshList()
+    },
+    pageChange(index) {
+      if (index == 0) this.filterOption.page = 0
+      else this.filterOption.page = this.filterOption.page + index
+
+      if (this.filterOption.page < 0) this.filterOption.page = 0
+      this.refreshList()
+    },
+    engageDominantTopicFilter(n) {
+      console.log(n)
+      this.filterOption.dominantTopic = n
+      this.onEngageFilter()
+    },
+    disengageDominantTopicFilter(){
+      this.filterOption.dominantTopic=null
+      this.onEngageFilter()
     }
   },
-  name: 'HelloWorld',
+  name: 'CommentsContainer',
   components: {
-    CommentItemCard
+    CommentItemCard,
+    ChartsContainer
   },
   props: {
   }
