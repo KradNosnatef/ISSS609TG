@@ -18,6 +18,7 @@ export default {
         }
     },
     created: function () {
+        setTimeout(this.drawChart,1000)
     },
     methods: {
         drawChart() {

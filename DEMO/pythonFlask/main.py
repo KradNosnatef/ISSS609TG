@@ -39,9 +39,9 @@ def getCommentsNumberGroupByYearMonthWithFilter():
         "xName":[],
         "yValue":[]
     }
-    if jsonObject["monthNotLastThan"]==None:monthNotLastThan=120
+    if jsonObject["monthNotLastThan"]==None:monthNotLastThan=180
     else: monthNotLastThan=jsonObject["monthNotLastThan"]
-    for i in range(0,monthNotLastThan+1):
+    for i in range(0,int(monthNotLastThan)+1):
         result["xName"].append(str(i))
         if str(i) in queryResultAsDict:result["yValue"].append(queryResultAsDict[str(i)])
         else: result["yValue"].append(0)

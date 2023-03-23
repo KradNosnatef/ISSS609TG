@@ -110,13 +110,17 @@ class CommentsDAO:
 
         sql=sql+") as TB GROUP BY TB.yearMonth;"
         print(sql)
-
-        database.commit()
-        cursor=database.cursor()
-        cursor.execute(sql,val)
-        result=cursor.fetchall()
-        cursor.close()
-        return result
+        try:
+            database.commit()
+            cursor=database.cursor()
+            cursor.execute(sql,val)
+            result=cursor.fetchall()
+            cursor.close()
+            return result
+        except:
+            CommentsDAO.reconnect()
+            print("except in getCommentsNumberGroupByYearMonthWithFilter")
+            return(CommentsDAO.getCommentsNumberGroupByYearMonthWithFilter(rating,monthNotLastThan,reviewerLocation,branch,sentiment))
 
 
 

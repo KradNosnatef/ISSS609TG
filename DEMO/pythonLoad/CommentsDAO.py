@@ -13,10 +13,10 @@ class CommentsDAO:
         database.commit()
         cursor=database.cursor()
 
-        #try:
-        sql="insert into main (RID,rating,yearMonth,reviewerLocation,reviewText,branch,dominantTopic,featureName,sentiment) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-        val=(rawComment.RID,rawComment.rating,rawComment.getYearMonthInQueryFormat(),rawComment.reviewerLocation,rawComment.reviewText,rawComment.branch,rawComment.dominantTopic,rawComment.featureName,rawComment.sentiment)
-        cursor.execute(sql,val)
-        database.commit()
-        #except:
-        print("EXCEPT IN InsertComment")
+        try:
+            sql="insert into main (RID,rating,yearMonth,reviewerLocation,reviewText,branch,dominantTopic,featureName,sentiment) values (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            val=(rawComment.RID,rawComment.rating,rawComment.getYearMonthInQueryFormat(),rawComment.reviewerLocation,rawComment.reviewText,rawComment.branch,rawComment.dominantTopic,rawComment.featureName,rawComment.sentiment)
+            cursor.execute(sql,val)
+            database.commit()
+        except:
+            print("EXCEPT IN InsertComment")
