@@ -1,17 +1,19 @@
 <template>
   <ChartsContainer :chartParams="chartParams"></ChartsContainer>
   <div>
-    <textarea>Filter Options</textarea>
+    <label>Filter Options</label>
+    <br>
+    <label>option with * will also filter the display of dashboard</label>
     <br>
     <div style="outline: auto;text-align: center;">
-      <label>Branch:</label><select v-model="filterOption.branch" @change="onEngageFilter">
+      <label>*Branch:</label><select v-model="filterOption.branch" @change="onEngageFilter">
         <option :value="nullValue">all</option>
         <option value="Disneyland_California">California</option>
         <option value="Disneyland_HongKong">HongKong</option>
         <option value="Disneyland_Paris">Paris</option>
       </select>
       <br>
-      <label>Rating:</label><select v-model="filterOption.rating" @change="onEngageFilter">
+      <label>*Rating:</label><select v-model="filterOption.rating" @change="onEngageFilter">
         <option :value="nullValue">all</option>
         <option value=1>1</option>
         <option value=2>2</option>
@@ -30,13 +32,13 @@
         <option value=120>within 10 years</option>
       </select>
       <br>
-      <label>Reviewer Location:</label><select v-model="filterOption.reviewerLocation" @change="onEngageFilter">
+      <label>*Reviewer Location:</label><select v-model="filterOption.reviewerLocation" @change="onEngageFilter">
         <option :value="nullValue">all</option>
         <option v-for="i in possibleReviewerLocationList.length - 1" :key="i" :value="possibleReviewerLocationList[i]">{{
           possibleReviewerLocationList[i] }}</option>
       </select>
       <br>
-      <label>Sentiment:</label><select v-model="filterOption.sentiment" @change="onEngageFilter">
+      <label>*Sentiment:</label><select v-model="filterOption.sentiment" @change="onEngageFilter">
         <option :value="nullValue">all</option>
         <option value="positive">positive</option>
         <option value="negative">negative</option>

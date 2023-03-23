@@ -78,7 +78,7 @@ class CommentsDAO:
             print("except in getCommentsWithFilter")
             return CommentsDAO.getCommentsWithFilter(returnNumberLimit,rating,monthNotLastThan,reviewerLocation,branch,dominantTopic,sentiment,orderBy,DESCorASC)
         
-    def getCommentsNumberGroupByYearMonthWithFilter(rating:int or None=None,monthNotLastThan:int or None=None,reviewerLocation:str or None=None,branch:str or None=None,sentiment:str or None=None):
+    def getCommentsNumberGroupByYearMonthWithFilter(rating:int or None=None,reviewerLocation:str or None=None,branch:str or None=None,sentiment:str or None=None):
         sql="select TIMESTAMPDIFF(MONTH,yearMonth,NOW()),count(TB.yearMonth) from (select * from main"
         where=" where"
         clause=""
@@ -87,10 +87,6 @@ class CommentsDAO:
         if rating!=None:
             clause=clause+" rating=%s and"
             val=val+(rating,)
-
-        if monthNotLastThan!=None:
-            clause=clause+" TIMESTAMPDIFF(MONTH,yearMonth,NOW())<=%s and"
-            val=val+(monthNotLastThan,)
 
         if reviewerLocation!=None:
             clause=clause+" reviewerLocation=%s and"
@@ -120,7 +116,7 @@ class CommentsDAO:
         except:
             CommentsDAO.reconnect()
             print("except in getCommentsNumberGroupByYearMonthWithFilter")
-            return(CommentsDAO.getCommentsNumberGroupByYearMonthWithFilter(rating,monthNotLastThan,reviewerLocation,branch,sentiment))
+            return(CommentsDAO.getCommentsNumberGroupByYearMonthWithFilter(rating,reviewerLocation,branch,sentiment))
 
 
 

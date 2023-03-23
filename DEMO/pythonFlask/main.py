@@ -31,7 +31,7 @@ def getCommentsNumberGroupByYearMonthWithFilter():
     print(request.data.decode())
 
     jsonObject=json.loads(request.data.decode())
-    queryResult=CommentsDAO.getCommentsNumberGroupByYearMonthWithFilter(jsonObject["rating"],jsonObject["monthNotLastThan"],jsonObject["reviewerLocation"],jsonObject["branch"],jsonObject["sentiment"])
+    queryResult=CommentsDAO.getCommentsNumberGroupByYearMonthWithFilter(jsonObject["rating"],jsonObject["reviewerLocation"],jsonObject["branch"],jsonObject["sentiment"])
     queryResultAsDict={}
     for row in queryResult:
         queryResultAsDict[str(row[0])]=row[1]
@@ -39,9 +39,7 @@ def getCommentsNumberGroupByYearMonthWithFilter():
         "xName":[],
         "yValue":[]
     }
-    if jsonObject["monthNotLastThan"]==None:monthNotLastThan=180
-    else: monthNotLastThan=jsonObject["monthNotLastThan"]
-    for i in range(0,int(monthNotLastThan)+1):
+    for i in range(0,900):
         result["xName"].append(str(i))
         if str(i) in queryResultAsDict:result["yValue"].append(queryResultAsDict[str(i)])
         else: result["yValue"].append(0)
