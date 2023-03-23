@@ -121,7 +121,7 @@ class CommentsDAO:
 
 
     def getPossibleReviewerLocation():
-        sql="select reviewerLocation from main group by reviewerLocation;"
+        sql="select reviewerLocation from main group by reviewerLocation order by reviewerLocation;"
 
         try:
             database.commit()
